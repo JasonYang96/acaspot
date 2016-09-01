@@ -1,5 +1,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<p>login</p>
+<div class="text-center">
+	<h1>Login</h1>
+	<form action='login' method='POST'>
+		<input type='text' name='user' id='user' placeholder='username'>
+		<br>
+		<br>
+		<input type='text' name='pw' id='pw' placeholder='password'>
+		<br>
+		<br>
+		<input type="submit" value="Submit">
+	</form>
+</div>
 {% endblock %}
