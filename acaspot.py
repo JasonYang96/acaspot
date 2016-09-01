@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from models import Users
 import flask_login
+from forms import LoginForm
 app = Flask(__name__)
 app.secret_key = 'acaspot'
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 users = {}
 
@@ -24,9 +26,11 @@ def request_loader(request):
         return None
 
     #TODO hash pw
-    users[user].authenticated = request.form['pw'] == users[user]['pw']
+    users[user].authenticated = request.form['pw'] == users[user].pw
 
     return users[user]
+
+# routes
 
 @app.route('/')
 def index():
@@ -34,22 +38,19 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'GET':
-        return render_template('login.html')
+    form = LoginForm()
+    if form.validate_on_submit():
+        # make sure user exists
+        user = str(request.form['user'])
+        if user not in users:
+            flash('Invalid Username. Please try again')
+            return redirect(url_for('login'))
 
-    # check if user exists
-    user = str(request.form['user'])
-    print users
+        if form.pw.data == users[user].pw:
+            flask_login.login_user(users[user], remember = form.remember_me.data)
+            return redirect(request.args.get('next') or url_for('user', user=user))
 
-    if user not in users:
-        flash('User does not exist')
-        return 'User does not exist'
-
-    if request.form['pw'] == users[user].pw: 
-        flask_login.login_user(users[user])
-        return redirect(url_for('profile', user=users[user]))
-
-    flash('Incorrect Password')
+    return render_template('login.html', form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -74,21 +75,17 @@ def register():
 
     users[user] = Users(user, pw, name, email, number, voice_part, sing_exp, music_exp, year, major, time_commit)
     flask_login.login_user(users[user])
+    return redirect(url_for('user', user=user))
+
+@flask_login.login_required
+@app.route('/user/<user>', methods=['GET', 'POST'])
+def user(user):
     return render_template('profile.html', user=users[user])
 
 @flask_login.login_required
-@app.route('/profile', methods=['GET', 'POST'])
-def profile():
-    if request.method == 'GET':
-        return render_template('profile.html', user=current_user)
-
-    #TODO edit profile fields
-    return render_template('profile.html', user=users[user])
-
 @app.route('/logout')
-@flask_login.login_required
 def logout():
-    logout_user()
+    flask_login.logout_user()
     return redirect(url_for('index'))
 
 if __name__ == '__main__':

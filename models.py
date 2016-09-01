@@ -13,22 +13,25 @@ class Users(flask_login.UserMixin):
         self.year = year
         self.major = major
         self.time_commit = time_commit
-        self.authenticated = False
+        self.authenticated = True
 
+    @property
     def is_active(self):
         return True
+
+    @property
+    def is_authenticated(self):
+        return self.authenticated
+
+    @property
+    def is_anonymous(self):
+        return False
 
     def get_id(self):
         return self.user
 
-    def is_authenticated(self):
-        return self.authenticated
-
-    def is_anonymous(self):
-        return False
-
-    def authenticate_user(self, auth):
-        self.authenticated = auth
+    def __repr__(self):
+        return '<User %r>' % (self.user)
 
 class Groups:
     groups = {}

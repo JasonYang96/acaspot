@@ -3,14 +3,12 @@
 {% block body %}
 <div class="text-center">
 	<h1>Login</h1>
-	<form action='login' method='POST'>
-		<input type='text' name='user' id='user' placeholder='username'>
-		<br>
-		<br>
-		<input type='text' name='pw' id='pw' placeholder='password'>
-		<br>
-		<br>
-		<input type="submit" value="Submit">
+	<form action='' method='POST' name="login">
+		{{ form.hidden_tag() }}
+		<p>Username: {{ form.user }}</p>
+		<p>Password: {{ form.pw }}</p>
+		<p>{{ form.remember_me }} Remember Me</p>
+		<input type="submit" value="Sign In">
 	</form>
 </div>
 {% endblock %}
