@@ -18,7 +18,6 @@ class ProfileForm(Form):
     music_exp = TextAreaField('music_exp', validators=[DataRequired()])
     time_commit = TextAreaField('time_commit', validators=[DataRequired()])
 
-class RegistrationForm(ProfileForm):
+class RegistrationForm(Form):
     user = StringField('user', validators=[DataRequired()])
     pw = StringField('pw', validators=[DataRequired()])
-

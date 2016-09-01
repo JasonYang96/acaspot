@@ -3,40 +3,10 @@
 {% block body %}
 <div class="text-center">
 	<h1>Register</h1>
-	<form action='register' method='POST'>
-		<input type='text' name='user' id='user' placeholder='username'>
-		<br>
-		<br>
-		<input type='text' name='pw' id='pw' placeholder='password'>
-		<br>
-		<br>
-		<input type='text' name='name' id='name' placeholder='First and Last Name'>
-		<br>
-		<br>
-		<input type='text' name='email' id='email' placeholder='email'>
-		<br>
-		<br>
-		<input type='text' name='number' id='number' placeholder='number'>
-		<br>
-		<br>
-		<input type='text' name='voice_part' id='voice_part' placeholder='Voice Part'>
-		<br>
-		<br>
-		<input type='text' name='sing_exp' id='sing_exp' placeholder='Singing Experience'>
-		<br>
-		<br>
-		<input type='text' name='music_exp' id='music_exp' placeholder='Music Experience'>
-		<br>
-		<br>
-		<input type='text' name='year' id='year' placeholder='Year'>
-		<br>
-		<br>
-		<input type='text' name='major' id='major' placeholder='Major'>
-		<br>
-		<br>
-		<input type='text' name='time_commit' id='time_commit' placeholder='Other Time Commitments'>
-		<br>
-		<br>
+	<form action='' method='POST' name="register">
+		{{ form.hidden_tag() }}
+		<p>Username: {{ form.user }}</p>
+		<p>Password: {{ form.pw }}</p>
 		<input type="submit" value="Submit">
 	</form>
 </div>

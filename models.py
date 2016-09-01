@@ -1,7 +1,7 @@
 import flask_login
 
 class Users(flask_login.UserMixin):
-    def __init__(self, user, pw, name, email, number, voice_part, sing_exp, music_exp, year, major, time_commit):
+    def __init__(self, user, pw, name=None, email=None, number=None, voice_part=None, sing_exp=None, music_exp=None, year=None, major=None, time_commit=None):
         self.user = user
         self.pw = pw
         self.name = name
