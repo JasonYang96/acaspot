@@ -1,7 +1,31 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{% if current_user %}
-	{{ current_user.name }}
-{% endif %}
+<div class="col-xs-12 text-center">
+	<h1>{{ current_user.name }}'s Profile</h1>
+	<br>
+	<div class="col-xs-6">
+		<p>Name: {{ current_user.name }}</p>
+		<br>
+		<p>Email: {{ current_user.email }}</p>
+		<br>
+		<p>Number: {{ current_user.number }}</p>
+		<br>
+		<p>Year: {{ current_user.year }}</p>
+		<br>
+		<p>Major: {{ current_user.major }}</p>
+	</div>
+	<div class="col-xs-6">
+		<p>Voice Part: {{ current_user.voice_part }}</p>
+		<br>
+		<p>Singing Experience:<br>
+		{{ current_user.sing_exp }}</p>
+		<br>
+		<p>Music Experience:<br>
+		{{ current_user.music_exp }}</p>
+		<br>
+		<p>Other Time Commitments:<br>
+		{{ current_user.time_commit }}</p>
+	</div>
+</div>
 {% endblock %}

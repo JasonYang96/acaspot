@@ -80,6 +80,8 @@ def register():
 @flask_login.login_required
 @app.route('/user/<user>', methods=['GET', 'POST'])
 def user(user):
+    if user not in users:
+        return redirect(url_for('index'))
     return render_template('profile.html', user=users[user])
 
 @flask_login.login_required
